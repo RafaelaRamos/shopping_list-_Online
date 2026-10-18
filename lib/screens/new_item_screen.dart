@@ -63,7 +63,6 @@ class _NewItemScreenState extends State<NewItemScreen> {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _saving = true);
-    // Cria um novo documento na colecao 'itens'; o Firestore gera o id.
     await _firestore.collection('itens').add({
       'nome': _nameController.text.trim(),
       'quantidade': int.parse(_quantityController.text.trim()),
@@ -71,7 +70,6 @@ class _NewItemScreenState extends State<NewItemScreen> {
         _unitPriceController.text.trim().replaceAll(',', '.'),
       ),
       'comprado': false,
-      // Usado para manter a lista na ordem de cadastro.
       'criadoEm': FieldValue.serverTimestamp(),
     });
 

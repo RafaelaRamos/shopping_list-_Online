@@ -9,7 +9,7 @@ class ItemDetailsScreen extends StatefulWidget {
 
   static const String routeName = '/details';
 
-  // Id do documento do item no Firestore.
+ 
   final String itemId;
 
   @override
@@ -19,7 +19,6 @@ class ItemDetailsScreen extends StatefulWidget {
 class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Busca uma unica vez o documento do item pelo id.
   late final Future<DocumentSnapshot> _itemFuture = _firestore
       .collection('itens')
       .doc(widget.itemId)
@@ -44,10 +43,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
       ),
     );
 
-    // Cancelar (ou fechar o dialogo por fora) mantem o item intacto.
-    if (confirmed != true) return;
+     if (confirmed != true) return;
 
-    // Apaga o documento do item no Firestore.
     await _firestore.collection('itens').doc(item.id).delete();
     if (!mounted) return;
     Navigator.of(context).pop(true);
