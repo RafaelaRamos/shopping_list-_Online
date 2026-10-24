@@ -16,9 +16,7 @@ class ShoppingListScreen extends StatefulWidget {
 class _ShoppingListScreenState extends State<ShoppingListScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Como a lista usa StreamBuilder, ela se atualiza sozinha: nao e preciso
-  // recarregar nada ao voltar das outras telas.
-  void _openNewItem() {
+   void _openNewItem() {
     Navigator.of(context).pushNamed(NewItemScreen.routeName);
   }
 
@@ -34,7 +32,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Lista de compras')),
-      // Escuta a colecao 'itens' em tempo real, na ordem de cadastro.
+      
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore.collection('itens').orderBy('criadoEm').snapshots(),
         builder: (context, snapshot) {
@@ -51,7 +49,7 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // Converte cada documento do Firestore em um ShoppingItem.
+        
           final items = snapshot.data!.docs
               .map((doc) => ShoppingItem.fromDocumentSnapshot(doc))
               .toList();
