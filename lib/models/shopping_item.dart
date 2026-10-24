@@ -13,7 +13,7 @@ class ShoppingItem {
     id = doc.id;
     name = doc['nome'];
     quantity = doc['quantidade'];
-    // Um preco como 25 pode voltar do Firestore como int, por isso o num.
+    
     unitPrice = (doc['precoUnitario'] as num).toDouble();
     purchased = doc['comprado'];
   }
